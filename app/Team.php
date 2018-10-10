@@ -20,4 +20,15 @@ class Team extends Model
     {
         return $this->hasMany(Player::class);
     }
+
+    /**
+     * @param array $data
+     *
+     * @return \App\Player
+     */
+    public function addPlayer(array $data): Player
+    {
+        return $this->players()
+            ->create($data);
+    }
 }
