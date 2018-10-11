@@ -6,6 +6,13 @@ use App\Player;
 use App\Team;
 use Tests\TestCase;
 
+/**
+ * Class TeamTest
+ *
+ * @group teams
+ * @coversDefaultClass App\Team
+ * @covers ::__construct
+ */
 class TeamTest extends TestCase
 {
     /**
