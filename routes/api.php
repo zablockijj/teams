@@ -19,4 +19,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::apiResource('teams', 'TeamController');
 
-Route::apiResource('players', 'PlayerController');
+Route::prefix('teams')
+    ->namespace('Team')
+    ->as('teams.')
+    ->group(function () {
+        Route::apiResource('{team}/players', 'PlayerController')
+            ->only('index', 'store');
+    });
+
+Route::apiResource('players', 'PlayerController')
+    ->only('show', 'update', 'destroy');
