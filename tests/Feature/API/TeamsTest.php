@@ -119,5 +119,9 @@ class TeamsTest extends TestCase
     {
         $this->deleteJson(route('api.teams.destroy', ['team' => $this->team->id]))
             ->assertStatus(204);
+
+        $this->assertDatabaseMissing('teams', [
+            'id' => $this->team->id,
+        ]);
     }
 }

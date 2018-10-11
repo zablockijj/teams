@@ -2,67 +2,46 @@
 
 namespace App\Http\Controllers\API;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\Players\UpdateRequest;
+use App\Http\Resources\PlayerResource;
+use App\Player;
 use App\Http\Controllers\Controller;
 
 class PlayerController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @param \App\Player $player
      *
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\PlayerResource
      */
-    public function index()
+    public function show(Player $player)
     {
-        //
+        return new PlayerResource($player);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @param \App\Http\Requests\Players\UpdateRequest $request
+     * @param \App\Player                              $player
      *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\PlayerResource
      */
-    public function store(Request $request)
+    public function update(UpdateRequest $request, Player $player)
     {
-        //
+        $player->fill($request->validated());
+        $player->save();
+
+        return new PlayerResource($player);
     }
 
     /**
-     * Display the specified resource.
+     * @param \App\Player $player
      *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function destroy(Player $player)
     {
-        //
-    }
+        $player->delete();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return response()->json([], 204);
     }
 }
