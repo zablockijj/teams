@@ -39,6 +39,8 @@ class TeamController extends Controller
      */
     public function show(Team $team)
     {
+        $team->load('players');
+
         return new TeamResource($team);
     }
 

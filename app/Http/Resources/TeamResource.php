@@ -16,8 +16,11 @@ class TeamResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'   => $this->id,
-            'name' => $this->name,
+            'id'           => $this->id,
+            'name'         => $this->name,
+            // todo: cache this count
+            'player_count' => $this->players()->count(),
+            'players'      => PlayerResource::collection($this->whenLoaded('players')),
         ];
     }
 }
